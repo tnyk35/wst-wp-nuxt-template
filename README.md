@@ -1,4 +1,4 @@
-# WST-WP-NUXT-GITHUB_ACTIONSについて
+# WST-WP-NUXT-templateについて
 
 - WP REST API＋Nuxt＋GitHub Actionsでレンタルサーバーに自動デプロイできるテンプレートです。
 - MITライセンスですので、これベースに作り直すなり、改造するなりご自由にお使いくださいませ。
