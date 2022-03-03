@@ -15,14 +15,6 @@
       </div>
     </main>
 
-    <footer class="articleBox__footer text-center mt-16">
-      <article-box-item :title="'SCOPE'">
-        {{ showScope(post.scope) }}
-      </article-box-item>
-      <article-box-item :title="'SITE'" class="mt-12">
-        <a :href="post.siteUrl" target="_blank">{{ showSiteText(post.siteUrl, post.sitetext) }}</a>
-      </article-box-item>
-    </footer>
   </article>
 </template>
 

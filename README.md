@@ -13,6 +13,7 @@
 
 - WordPressのREST APIでデータ取得
 - Nuxtは、axios / Composition API / TailwindCSSで実装
+- Atomic Designも（一応）
 - GitHub Actionsでビルドしてレンタルサーバーにアップされる
 
 ## ファイル構成
