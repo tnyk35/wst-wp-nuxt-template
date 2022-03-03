@@ -1,0 +1,51 @@
+name: save
+
+on:
+  repository_dispatch:
+    type: after_saving_wordpress
+  # push:
+  #   branches:
+  #     - master
+
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [16.4]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v2
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{ matrix.node }}
+          check-latest: true
+
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies 👨🏻‍💻
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Nuxt Generate
+        run: npm run generate
+
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0     # FTPアップロードアクション（https://github.com/SamKirkland/FTP-Deploy-Action）
+        with:
+          server: ${{ secrets.FTP_SERVER }}       # FTPのサーバーアドレス
+          username: ${{ secrets.FTP_USER }}   # FTPのユーザー名
+          password: ${{ secrets.FTP_PASSWORD }}   # FTPのパスワード
+          local-dir: ./dist/                           # アップロードしたいファイルのパス、この場合srcディレクトリ内をアップロード対象としている
+          server-dir: ${{ secrets.DEPLOY_DIR }}      # アップロード先のリモートパス
